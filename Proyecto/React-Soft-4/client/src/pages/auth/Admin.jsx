@@ -314,6 +314,7 @@ const Admin = () => {
                   <td className='p-3 text-sm whitespace-nowrap font-bold text-blue-500 hover:underline'>
                     <h1 className='bg-primary rounded text-white text-center'>
                       {val.rol}
+                      {val.rolItem}
                     </h1>
                   </td>
                   <td className=''>

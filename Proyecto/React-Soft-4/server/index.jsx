@@ -46,7 +46,14 @@ app.post("/login", (req, res) => {
                 res.status(500).send("Error en el servidor");
             } else {
                 if (result.length > 0) {
-                    res.status(200).send("Inicio de sesión exitoso");
+                    const { id, Nombre, Correo, Usuario, rol } = result[0];
+                    res.status(200).json({
+                        id,
+                        Nombre,
+                        Correo,
+                        Usuario,
+                        rol 
+                    });
                 } else {
                     res.status(401).send("Credenciales inválidas");
                 }

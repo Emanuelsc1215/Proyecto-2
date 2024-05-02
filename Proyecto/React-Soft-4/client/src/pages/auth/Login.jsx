@@ -20,14 +20,14 @@ const Login = () => {
     e.preventDefault();
 
     if ([email, password].includes("")) {
-      toast.error("Todos los campos  son obligatorios", {
+      toast.error("Todos los campos son obligatorios", {
         position: "top-center",
         theme: "light",
       });
       return;
     }
     if (password.length < 6) {
-      toast.error("La contraseña debe cumplir con al menos 6 caracteres", {
+      toast.error("La contraseña debe tener al menos 6 caracteres", {
         theme: "light",
         position: "top-center",
       });
@@ -39,17 +39,29 @@ const Login = () => {
         email,
         password
       });
-      if (response.status === 200) {
-        navigate("/eleccion");
+      
+      const rol = response.data.user.rol
+      if (10>1) { // Suponiendo que el rol viene en la respuesta del backend
+        if (rol === 1) {
+          navigate("/Home");
+        } else if (rol === 2) {
+          navigate("/Eleccion");
+        } else {
+          // Si el rol no es ninguno de los esperados, manejarlo de acuerdo a tus necesidades
+          toast.error("Rol de usuario desconocido", {
+            theme: "light",
+            position: "top-center",
+          });
+        }
       } else {
-        toast.error("Credenciales incorrecta", {
+        toast.error("Credenciales incorrectas", {
           theme: "light",
           position: "top-center",
         });
       }
     } catch (error) {
-      console.log("Usuario No Registrado:", error);
-      toast.error("Usuario No Registrado", {
+      console.log("Error al iniciar sesión:", error);
+      toast.error("Error al iniciar sesión", {
         theme: "light",
         position: "top-center",
       });

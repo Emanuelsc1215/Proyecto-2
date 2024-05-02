@@ -10,7 +10,18 @@ import Registro from './Registro';
 
 
 const Menu = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+
+    const handleLogout = () => {
+      // Limpiar la sesión o token de autenticación (ejemplo: eliminar una cookie)
+      // Aquí puedes agregar la lógica para limpiar la sesión
+      // Por ejemplo, eliminando un token de autenticación almacenado en el almacenamiento local
+      // localStorage.removeItem('token');
+      
+      // Redireccionar a la página de inicio de sesión
+      history.push('/login');
+  };
+
     return (
         <div className='bg-white py-5 fixed rounded-lg left-20 right-0 w-[90%] border-blue-400 top-7 shadow-md z-20 border-2 ' >
         <button className='ml-4 relative text-blue-500 ' onClick={() => setOpen(true)}>
@@ -51,7 +62,7 @@ const Menu = () => {
            
             <div className='text-center text-white text-xl hover:bg-blue-400 cursor-pointer py-0.5 mb-2 -top-14 relative'><ImExit className='relative w-10 h-10 left-12 top-4'/><Link 
             to="/"
-            ><p className='relative -top-4'>Salir</p></Link></div>
+            ><p onClick={handleLogout} className='relative -top-4'>Salir</p></Link></div>
 
   
             
