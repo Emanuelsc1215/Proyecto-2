@@ -34,6 +34,27 @@ app.post("/create", (req, res) => {
     );
 });
 
+
+app.post("/create", (req, res) => {
+    const Nombre = req.body.Nombre;
+    const Apellido = req.body.Apellido;
+    const Telefono = req.body.Telefono;
+    const Finca = req.body.Finca;
+
+    db.query(
+        'INSERT INTO asociados(Nombre, Apellido, Telefono, Finca) VALUES (?, ?, ?, ?)',
+        [Nombre, Apellido, Telefono, Finca],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send("Error al crear asociado");
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
@@ -108,6 +129,32 @@ app.delete("/delete/:id", (req, res) => {
             }
         }
     );
+});
+
+app.get("/beneficios", (req, res) => {
+    db.query('SELECT idbeneficios, tipos_beneficios FROM usuarios',
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Error al obtener beneficios');
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+app.get("/asociados", (req, res) => {
+    db.query('SELECT * FROM asociados',
+    (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error al obtener los asociados');
+        } else{
+            res.send(result)
+        }
+    }
+
+    )
 });
 
 

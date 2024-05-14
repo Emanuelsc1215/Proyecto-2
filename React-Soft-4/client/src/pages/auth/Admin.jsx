@@ -18,10 +18,33 @@ const Admin = () => {
   const [id, setId] = useState('0');
   const [Editar, setEditar] = useState(false);
   const [usuariosList, setUsuarios] = useState([]);
+  const [asociadosList, setAsociados] = useState([]);
 
   useEffect(() => {
     getUsuarios();
   }, []);
+
+  useEffect(() => {
+    getAsociados();
+  }, []);
+
+  const getAsociados = () => {
+    Axios.get('http://localhost:3001/asociados',{
+    })
+      .then((response) => {
+        const asociados = response.data.map((asociados) => {
+
+          console.log(asociados)
+          return {
+            ...asociados
+          };
+        });
+        setAsociados(asociados);
+      })
+      .catch((error) => {
+        console.error('Error al obtener asociados:', error);
+      });
+  };
 
   const add = () => {
     Axios.post('http://localhost:3001/create', {
@@ -139,6 +162,7 @@ const Admin = () => {
     setId(val.id);
   };
 
+
   const getUsuarios = () => {
     Axios.get('http://localhost:3001/usuarios')
       .then((response) => {
@@ -169,6 +193,7 @@ const Admin = () => {
           <p class='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl'>
             Formulario De Registro
           </p>
+        
           <div>
             <label class='block mb-2 text-sm font-medium text-gray-900'>
               Nombre
@@ -270,8 +295,22 @@ const Admin = () => {
           )}
         </div>
       </div>
+<div>
+
+  <div>
+    {asociadosList.map(val => (
+            <tr key={val.id} className='bg-white'>
+        <td>{val.Nombre}</td>
+        </tr>
+      )
+    ) }
+  </div>
+                  
+              
+</div>
 
       <div>
+      
         <table className='w-[80%] relative left-36 z-10 border-collapse rounded-lg border-gray-300 top-[10rem]  '>
           <thead className='bg-primary border-b-2 border-gray-200 '>
             <tr className='relative h-[50px] text-white'>
@@ -296,6 +335,8 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody className='bg-gray-200'>
+
+            
             {usuariosList.map((val, key) => {
               return (
                 <tr key={val.id} className='bg-white'>
