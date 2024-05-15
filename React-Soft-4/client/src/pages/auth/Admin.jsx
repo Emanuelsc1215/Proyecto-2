@@ -299,9 +299,13 @@ const Admin = () => {
 
   <div>
     {asociadosList.map(val => (
-            <tr key={val.id} className='bg-white'>
-        <td>{val.Nombre}</td>
-        </tr>
+            <h1 key={val.id} className='bg-white relative left-[70%]'>
+              <h1>{val.Nombre}</h1>
+              <h1>{val.Apellido}</h1>
+              <h1>{val.Telefono}</h1>
+              <h1>{val.Finca}</h1>
+        </h1>
+        
       )
     ) }
   </div>
